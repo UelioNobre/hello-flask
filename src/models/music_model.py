@@ -4,7 +4,7 @@ import random
 
 
 class MusicModel(AbstractModel):
-    __collection = db["musics"]
+    _collection = db["musics"]
 
     def __init__(self, data: dict):
         super().__init__(data)
