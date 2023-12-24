@@ -1,5 +1,5 @@
 from bson import ObjectId
-from flask import Blueprint
+from flask import Blueprint, jsonify
 
 from models.music_model import MusicModel
 
@@ -17,3 +17,11 @@ def _get_all_musics():
 def _get_music(id: str):
     music = MusicModel.find_one({"_id": ObjectId(id)})
     return music
+
+
+# ----------
+# Rotas HTTp para a nossa API
+@musics_controller.route("/", methods=["GET"])
+def music_index():
+    musics_list = _get_all_musics()
+    return jsonify(musics_list)
