@@ -11,7 +11,7 @@ class MusicModel(AbstractModel):
 
     @classmethod
     def get_random(cls):
-        data = cls._collection.find()
+        data = cls.find()
         if data is None:
             return
 
