@@ -25,3 +25,11 @@ def _get_music(id: str):
 def music_index():
     musics_list = _get_all_musics()
     return jsonify(musics_list)
+
+
+@musics_controller.route("/random", methods=["GET"])
+def music_random():
+    music = MusicModel.get_random()
+    if music is None:
+        return
+    return jsonify(music.to_dict()), 200
