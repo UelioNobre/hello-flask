@@ -1,6 +1,8 @@
 # jokes_controller.py
 from bson import ObjectId
 from flask import Blueprint, jsonify, request
+
+# from .status_http import StatusHttp
 from models.joke_model import JokeModel
 
 jokes_controller = Blueprint("jokes", __name__)
@@ -48,6 +50,8 @@ def joke_random():
         # O Flask entende que o número após o jsonify, representa o Status HTTP
         return jsonify({"error": "No jokes available"}), 404
 
+    # return jsonify(joke.to_dict()), StatusHttp.OK
+    # Utilzar Enum no status code causa um erro
     return jsonify(joke.to_dict()), 200
 
 
@@ -65,7 +69,7 @@ def joke_update(id: str):
     if joke is None:
         return jsonify({"error": "Joke not found"}), 404
     joke.update(request.json)
-    return jsonify(joke.to_dict()), 200
+    return jsonify(joke.to_dict()), 201
 
 
 @jokes_controller.route("/<id>", methods=["GET"])
