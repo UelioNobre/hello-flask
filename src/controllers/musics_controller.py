@@ -1,5 +1,5 @@
 from bson import ObjectId
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
 from models.music_model import MusicModel
 
@@ -33,3 +33,10 @@ def music_random():
     if music is None:
         return
     return jsonify(music.to_dict()), 200
+
+
+@musics_controller.route("/", methods=["POST"])
+def music_post():
+    new_music = MusicModel(request.json)
+    new_music.save()
+    return jsonify(new_music.to_dict()), 201
